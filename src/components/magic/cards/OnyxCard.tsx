@@ -45,7 +45,7 @@ const Onyx = ({ token, setToken }: LoginProps) => {
       const options = {}; // Add your desired options here
 
       const response = await fetch(
-        `http://localhost:3000/api/vp?vc=${vc}`,
+        `/api/vp?vc=${vc}`,
         options
       );
       const data = await response.json();
@@ -61,7 +61,7 @@ const Onyx = ({ token, setToken }: LoginProps) => {
       const options = {}; // Add your desired options here
 
       const response = await fetch(
-        `http://localhost:3000/api/verify?vp=${vp}`,
+        `/api/verify?vp=${vp}`,
         options
       );
       const data = await response.json();
