@@ -1,17 +1,19 @@
-import React from 'react';
-import WalletMethods from './cards/WalletMethodsCard';
-import SendTransaction from './cards/SendTransactionCard';
-import Spacer from '@/components/ui/Spacer';
-import { LoginProps } from '@/utils/types';
-import UserInfo from './cards/UserInfoCard';
-import DevLinks from './DevLinks';
-import Header from './Header';
+import React from "react";
+import WalletMethods from "./cards/WalletMethodsCard";
+import SendTransaction from "./cards/SendTransactionCard";
+import Spacer from "@/components/ui/Spacer";
+import { LoginProps } from "@/utils/types";
+import UserInfo from "./cards/UserInfoCard";
+import DevLinks from "./DevLinks";
+import Header from "./Header";
+import Onyx from "./cards/OnyxCard";
 
 export default function Dashboard({ token, setToken }: LoginProps) {
   return (
     <div className="home-page">
       <Header />
       <div className="cards-container">
+        <Onyx token={token} setToken={setToken} />
         <UserInfo token={token} setToken={setToken} />
         <Spacer size={10} />
         <SendTransaction />

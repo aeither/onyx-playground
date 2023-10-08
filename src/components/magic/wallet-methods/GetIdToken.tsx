@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from "react";
-import { useMagic } from "../MagicProvider";
-import showToast from "@/utils/showToast";
 import Spinner from "@/components/ui/Spinner";
+import showToast from "@/utils/showToast";
+import { useCallback, useState } from "react";
+import { useMagic } from "../MagicProvider";
 
 const GetIdToken = () => {
   const { magic } = useMagic();
@@ -34,24 +34,8 @@ const GetIdToken = () => {
     );
   };
 
-  const fetchBackend = async () => {
-    try {
-      const response = await fetch("/api/issue");
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data = await response.json();
-      console.log("🚀 ~ file: GetIdToken.tsx:44 ~ fetchBackend ~ data:", data)
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   return (
     <>
-      <div className="wallet-method-container">
-        <button onClick={fetchBackend}>Get fetchBackend</button>
-      </div>
       <div className="wallet-method-container">
         <button onClick={getMetadata}>Get metadata</button>
       </div>
