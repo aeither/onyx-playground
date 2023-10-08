@@ -5,8 +5,19 @@ import {
 } from "@jpmorganchase/onyx-ssi-sdk";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const HOLDER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey("HOLDER_EDDSA_PRIVATE_KEY");
-const ISSUER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey("ISSUER_EDDSA_PRIVATE_KEY");
+// {
+//   "ISSUER_EDDSA_PRIVATE_KEY": "92dfd79dde2e107b4d133cce8ca99698c6a4cbefa1379613b14fa9418432695d136c036c4eae1af585006e9565871c575fcfb8367afd8120e97aa04913c759e7",
+//   "HOLDER_EDDSA_PRIVATE_KEY": "e43788afa28a6b0de2bb6a02d5e9abccfdc03355e1322e4b899a8b757daf052f034300f1d089ead4646aa91732a4fdcf00b3faeb6d38a610880b1d6e047984ec",
+//   "ISSUER_ES256K_PRIVATE_KEY": "0x2368f01f4943504e7c39356f30613e725a9af8b817b9be3e23eeeecc928de688",
+//   "HOLDER_ES256K_PRIVATE_KEY": "0x39229e9345f1c7282827a99d22f95dbb4c6fba18c7290cf901685b8492cadd96"
+// }
+
+const HOLDER_EDDSA_PRIVATE_KEY =
+  "e43788afa28a6b0de2bb6a02d5e9abccfdc03355e1322e4b899a8b757daf052f034300f1d089ead4646aa91732a4fdcf00b3faeb6d38a610880b1d6e047984ec" ||
+  getEddsaPrivateKey("HOLDER_EDDSA_PRIVATE_KEY");
+const ISSUER_EDDSA_PRIVATE_KEY =
+  "92dfd79dde2e107b4d133cce8ca99698c6a4cbefa1379613b14fa9418432695d136c036c4eae1af585006e9565871c575fcfb8367afd8120e97aa04913c759e7" ||
+  getEddsaPrivateKey("ISSUER_EDDSA_PRIVATE_KEY");
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const key = await createVc();

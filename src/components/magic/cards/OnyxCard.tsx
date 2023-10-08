@@ -7,8 +7,24 @@ import { LoginProps } from "@/utils/types";
 import { useState } from "react";
 
 const Onyx = ({ token, setToken }: LoginProps) => {
+  const [key, setKey] = useState("Not generated");
   const [vc, setVc] = useState("Not generated");
   const [vp, setVp] = useState("Not generated");
+  const [isVerified, setIsVerified] = useState(false);
+
+  const getKeys = async () => {
+    try {
+      const response = await fetch("/api/key");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+      console.log("🚀 ~ file: GetIdToken.tsx:44 ~ fetchBackend ~ data:", data);
+      setVc(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const getVc = async () => {
     try {
@@ -34,6 +50,23 @@ const Onyx = ({ token, setToken }: LoginProps) => {
       );
       const data = await response.json();
       console.log(data);
+      setVp(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const checkVerified = async () => {
+    try {
+      const options = {}; // Add your desired options here
+
+      const response = await fetch(
+        `http://localhost:3000/api/verify?vp=${vp}`,
+        options
+      );
+      const data = await response.json();
+      console.log(data);
+      setIsVerified(data);
     } catch (err) {
       console.error(err);
     }
@@ -48,6 +81,24 @@ const Onyx = ({ token, setToken }: LoginProps) => {
         <div className="connected">Connected to {getNetworkName()}</div>
       </div> */}
       {/* <Divider /> */}
+
+      {/* <CardLabel leftHeader="Key" />
+      <button
+        className="form-button"
+        onClick={() => {
+          getKeys();
+        }}
+      >
+        Gen Keys
+      </button>
+
+      <Divider />
+
+      <CardLabel leftHeader="Key" />
+      <div className="code">{key}</div>
+
+      <Divider /> */}
+      {/* VP */}
 
       <CardLabel leftHeader="Issuer" />
       <button
@@ -66,6 +117,8 @@ const Onyx = ({ token, setToken }: LoginProps) => {
 
       <Divider />
 
+      {/* VP */}
+
       <CardLabel leftHeader="Holder" />
       <button
         className="form-button"
@@ -80,6 +133,23 @@ const Onyx = ({ token, setToken }: LoginProps) => {
 
       <CardLabel leftHeader="VP" />
       <div className="code">{vp}</div>
+
+      {/* Verify */}
+
+      <CardLabel leftHeader="Verifier" />
+      <button
+        className="form-button"
+        onClick={() => {
+          checkVerified();
+        }}
+      >
+        Verify
+      </button>
+
+      <Divider />
+
+      <CardLabel leftHeader="Is verified" />
+      <div className="code">{isVerified ? "Verified!" : "Not verified"}</div>
     </Card>
   );
 };
