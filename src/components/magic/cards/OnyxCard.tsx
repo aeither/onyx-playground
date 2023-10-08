@@ -4,9 +4,12 @@ import CardLabel from "@/components/ui/CardLabel";
 import Divider from "@/components/ui/Divider";
 import { getNetworkName } from "@/utils/network";
 import { LoginProps } from "@/utils/types";
+import { useState } from "react";
 
 const Onyx = ({ token, setToken }: LoginProps) => {
-  const fetchBackend = async () => {
+  const [vc, setVc] = useState("Not generated");
+
+  const getVc = async () => {
     try {
       const response = await fetch("/api/vc");
       if (!response.ok) {
@@ -14,6 +17,7 @@ const Onyx = ({ token, setToken }: LoginProps) => {
       }
       const data = await response.json();
       console.log("🚀 ~ file: GetIdToken.tsx:44 ~ fetchBackend ~ data:", data);
+      setVc(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -21,24 +25,26 @@ const Onyx = ({ token, setToken }: LoginProps) => {
 
   return (
     <Card>
-      <CardHeader id="Wallet">Wallet</CardHeader>
-      <CardLabel leftHeader="Status" isDisconnect />
+      <CardHeader id="Wallet">Onyx</CardHeader>
+      {/* <CardLabel leftHeader="Status"  />
       <div className="flex-row">
         <div className="green-dot" />
         <div className="connected">Connected to {getNetworkName()}</div>
-      </div>
-      <Divider />
-      <CardLabel leftHeader="Address" />
-      <div className="code">card label</div>
-      <Divider />
-      <CardLabel leftHeader="Balance" />
+      </div> */}
+      {/* <Divider /> */}
+
+      <CardLabel leftHeader="Issuer" />
       <button
+        className="form-button"
         onClick={() => {
-          fetchBackend();
+          getVc();
         }}
       >
-        click me
+        Create and sign VC
       </button>
+      <Divider />
+      <CardLabel leftHeader="VC" />
+      <div className="code">{vc}</div>
     </Card>
   );
 };

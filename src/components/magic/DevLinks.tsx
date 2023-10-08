@@ -1,9 +1,15 @@
-import classNames from 'classnames';
-import Link from 'next/link';
+import classNames from "classnames";
+import Link from "next/link";
 
-const DevLinks = ({ primary = false, footer = false }: { primary?: boolean; footer?: boolean }) => (
-  <div className={`links ${footer ? 'footer-links' : ''}`}>
-    <div className={`link ${primary ? 'text-[#6851ff]' : 'text-[#fff]'}`}>
+const DevLinks = ({
+  primary = false,
+  footer = false,
+}: {
+  primary?: boolean;
+  footer?: boolean;
+}) => (
+  <div className={`links ${footer ? "footer-links" : ""}`}>
+    {/* <div className={`link ${primary ? 'text-[#6851ff]' : 'text-[#fff]'}`}>
       <a href="https://magic.link/docs/home/welcome" target="_blank" rel="noreferrer">
         Dev Docs
       </a>
@@ -19,7 +25,7 @@ const DevLinks = ({ primary = false, footer = false }: { primary?: boolean; foot
       <a href="https://discord.gg/magiclabs" target="_blank" rel="noreferrer">
         Discord
       </a>
-    </div>
+    </div> */}
   </div>
 );
 
