@@ -6,7 +6,7 @@ const HOLDER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey("HOLDER_EDDSA_PRIVATE_KEY");
 const ISSUER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey("ISSUER_EDDSA_PRIVATE_KEY");
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  // createVc();
+  createVc();
 
   const msg = { message: "Hello, World!" };
   console.log(msg);
