@@ -8,6 +8,7 @@ import { useState } from "react";
 
 const Onyx = ({ token, setToken }: LoginProps) => {
   const [vc, setVc] = useState("Not generated");
+  const [vp, setVp] = useState("Not generated");
 
   const getVc = async () => {
     try {
@@ -20,6 +21,21 @@ const Onyx = ({ token, setToken }: LoginProps) => {
       setVc(data);
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const getVp = async () => {
+    try {
+      const options = {}; // Add your desired options here
+
+      const response = await fetch(
+        `http://localhost:3000/api/vp?vc=${vc}`,
+        options
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -42,9 +58,28 @@ const Onyx = ({ token, setToken }: LoginProps) => {
       >
         Create and sign VC
       </button>
+
       <Divider />
+
       <CardLabel leftHeader="VC" />
       <div className="code">{vc}</div>
+
+      <Divider />
+
+      <CardLabel leftHeader="Holder" />
+      <button
+        className="form-button"
+        onClick={() => {
+          getVp();
+        }}
+      >
+        Create and sign VP
+      </button>
+
+      <Divider />
+
+      <CardLabel leftHeader="VP" />
+      <div className="code">{vp}</div>
     </Card>
   );
 };
