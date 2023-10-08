@@ -1,22 +1,17 @@
+import { getEddsaPrivateKey, privateKeyBufferFromString } from "@/utils/helper";
 import {
   KeyDIDMethod,
   createAndSignCredentialJWT,
 } from "@jpmorganchase/onyx-ssi-sdk";
-
 import { NextApiRequest, NextApiResponse } from "next";
-import { getEddsaPrivateKey, privateKeyBufferFromString } from "@/utils/helper";
 
-const HOLDER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey(
-  "HOLDER_EDDSA_PRIVATE_KEY"
-);
-const ISSUER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey(
-  "ISSUER_EDDSA_PRIVATE_KEY"
-);
+const HOLDER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey("HOLDER_EDDSA_PRIVATE_KEY");
+const ISSUER_EDDSA_PRIVATE_KEY = getEddsaPrivateKey("ISSUER_EDDSA_PRIVATE_KEY");
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
-  createVc();
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const key = await createVc();
 
-  res.status(200).json({ message: "Hello, World!" });
+  res.status(200).json(key);
 };
 
 const createVc = async () => {
@@ -56,6 +51,5 @@ const createVc = async () => {
   );
 
   console.log(signedVc);
-
-  console.log("\nSaving signed VC JWT\n");
+  return signedVc;
 };
